@@ -1,0 +1,39 @@
+package clase.readers;
+
+import clase.Angajat;
+import clase.Aplicant;
+import clase.Elev;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class ReaderAngajati extends ReaderAplicanti {
+
+
+    public ReaderAngajati(String numefisier) {
+        super(numefisier);
+    }
+
+    @Override
+    public List<Aplicant> readAplicanti() throws FileNotFoundException {
+        Scanner input= new Scanner(new File(super.numefisier));
+        input.useDelimiter(",");
+        List<Aplicant> angajati= new ArrayList<>();
+        while(input.hasNext()) {
+            Angajat a = new Angajat();
+            super.citesteAplicanti(input,a);
+            int salariu = input.nextInt();
+            a.setSalariu(salariu);
+            String ocupatie = input.next();
+            a.setOcupatie(ocupatie);
+            angajati.add(a);
+        }
+        input.close();
+        return angajati;
+    }
+
+
+}
